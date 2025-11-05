@@ -22,7 +22,6 @@ class TechTinderApp extends StatelessWidget {
           ),
         ),
       ),
-
       home: const HomePage(),
     );
   }
@@ -60,15 +59,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<ProgrammingLanguage> _matches = [];
-  
+  final List<ProgrammingLanguage> _skipped = [];
+
   final List<ProgrammingLanguage> _languages = [
     ProgrammingLanguage(
       name: 'Python',
       emoji: '🐍',
       tagline: '"Life is short, use Python"',
-      bio: 'I\'m the friendly one everyone loves. Simple, elegant, and I can do pretty much anything from web apps to AI. Want to automate your life? I\'m your snake! 🎯',
-      description: 'Python is a high-level, interpreted programming language created by Guido van Rossum in 1991. Known for its clean syntax and readability, it emphasizes code simplicity and developer productivity.',
-      useCases: 'Web Development (Django, Flask), Data Science & AI, Automation & Scripting, Scientific Computing, Game Development',
+      bio:
+          'I\'m the friendly one everyone loves. Simple, elegant, and I can do pretty much anything from web apps to AI. Want to automate your life? I\'m your snake! 🎯',
+      description:
+          'Python is a high-level, interpreted programming language created by Guido van Rossum in 1991. Known for its clean syntax and readability, it emphasizes code simplicity and developer productivity.',
+      useCases:
+          'Web Development (Django, Flask), Data Science & AI, Automation & Scripting, Scientific Computing, Game Development',
       sampleCode: '''# Hello World in Python
 print("Hello, World!")
 
@@ -92,9 +95,12 @@ print(greet("Developer"))''',
       name: 'JavaScript',
       emoji: '⚡',
       tagline: '"I run the web"',
-      bio: 'Versatile, everywhere, and a bit chaotic. I started in browsers but now I\'m on servers too! Love me or hate me, you can\'t escape me. Full-stack is my middle name! 💛',
-      description: 'JavaScript is the programming language of the web, created in 1995. It enables interactive web pages and runs on virtually every browser. With Node.js, it conquered server-side development too.',
-      useCases: 'Frontend Development, Backend (Node.js), Mobile Apps (React Native), Desktop Apps (Electron), Game Development',
+      bio:
+          'Versatile, everywhere, and a bit chaotic. I started in browsers but now I\'m on servers too! Love me or hate me, you can\'t escape me. Full-stack is my middle name! 💛',
+      description:
+          'JavaScript is the programming language of the web, created in 1995. It enables interactive web pages and runs on virtually every browser. With Node.js, it conquered server-side development too.',
+      useCases:
+          'Frontend Development, Backend (Node.js), Mobile Apps (React Native), Desktop Apps (Electron), Game Development',
       sampleCode: '''// Hello World in JavaScript
 console.log("Hello, World!");
 
@@ -122,9 +128,12 @@ console.log(greet("Developer"));''',
       name: 'Rust',
       emoji: '🦀',
       tagline: '"Fearless concurrency"',
-      bio: 'I\'m the safe choice - literally! Memory safety without garbage collection? That\'s me. A bit strict with rules, but hey, I prevent those nasty bugs. Performance with safety! 🛡️',
-      description: 'Rust is a modern systems programming language focused on safety, speed, and concurrency. Created in 2010, it prevents common bugs like null pointer dereferences and data races at compile time.',
-      useCases: 'Systems Programming, Game Engines, Web Assembly, CLI Tools, Embedded Systems, Blockchain',
+      bio:
+          'I\'m the safe choice - literally! Memory safety without garbage collection? That\'s me. A bit strict with rules, but hey, I prevent those nasty bugs. Performance with safety! 🛡️',
+      description:
+          'Rust is a modern systems programming language focused on safety, speed, and concurrency. Created in 2010, it prevents common bugs like null pointer dereferences and data races at compile time.',
+      useCases:
+          'Systems Programming, Game Engines, Web Assembly, CLI Tools, Embedded Systems, Blockchain',
       sampleCode: '''// Hello World in Rust
 fn main() {
     println!("Hello, World!");
@@ -152,9 +161,12 @@ fn greet(name: &str) -> String {
       name: 'Go',
       emoji: '🐹',
       tagline: '"Less is exponentially more"',
-      bio: 'Simple, fast, and built for the cloud! Created by Google legends, I\'m perfect for microservices and concurrent systems. No fancy features, just pure efficiency! ☁️',
-      description: 'Go (or Golang) was developed at Google in 2009 by Robert Griesemer, Rob Pike, and Ken Thompson. It\'s designed for simplicity, with built-in concurrency support via goroutines.',
-      useCases: 'Cloud Services, Microservices, DevOps Tools, Network Programming, CLI Applications, Backend APIs',
+      bio:
+          'Simple, fast, and built for the cloud! Created by Google legends, I\'m perfect for microservices and concurrent systems. No fancy features, just pure efficiency! ☁️',
+      description:
+          'Go (or Golang) was developed at Google in 2009 by Robert Griesemer, Rob Pike, and Ken Thompson. It\'s designed for simplicity, with built-in concurrency support via goroutines.',
+      useCases:
+          'Cloud Services, Microservices, DevOps Tools, Network Programming, CLI Applications, Backend APIs',
       sampleCode: '''// Hello World in Go
 package main
 
@@ -186,9 +198,12 @@ func greet(name string) string {
       name: 'TypeScript',
       emoji: '💙',
       tagline: '"JavaScript that scales"',
-      bio: 'I\'m JavaScript\'s sophisticated sibling. I add types to keep things organized and catch errors before they happen. Big projects? I\'m your type! 😎',
-      description: 'TypeScript is a typed superset of JavaScript developed by Microsoft in 2012. It adds optional static typing, classes, and interfaces, compiling to plain JavaScript.',
-      useCases: 'Large-scale Web Applications, Frontend Frameworks (Angular, React), Backend (Node.js), Mobile Development',
+      bio:
+          'I\'m JavaScript\'s sophisticated sibling. I add types to keep things organized and catch errors before they happen. Big projects? I\'m your type! 😎',
+      description:
+          'TypeScript is a typed superset of JavaScript developed by Microsoft in 2012. It adds optional static typing, classes, and interfaces, compiling to plain JavaScript.',
+      useCases:
+          'Large-scale Web Applications, Frontend Frameworks (Angular, React), Backend (Node.js), Mobile Development',
       sampleCode: '''// Hello World in TypeScript
 console.log("Hello, World!");
 
@@ -222,9 +237,12 @@ const dev: Developer = {
       name: 'Swift',
       emoji: '🦅',
       tagline: '"Fast. Modern. Safe."',
-      bio: 'Apple\'s golden child! I make iOS and Mac apps beautiful and performant. Clean syntax, powerful features, and I\'m faster than you think. Ready to build the next big app? 📱',
-      description: 'Swift is a powerful programming language created by Apple in 2014 for iOS, macOS, watchOS, and tvOS development. It\'s designed to be fast, safe, and expressive.',
-      useCases: 'iOS Development, macOS Apps, watchOS Apps, tvOS Apps, Server-side Swift',
+      bio:
+          'Apple\'s golden child! I make iOS and Mac apps beautiful and performant. Clean syntax, powerful features, and I\'m faster than you think. Ready to build the next big app? 📱',
+      description:
+          'Swift is a powerful programming language created by Apple in 2014 for iOS, macOS, watchOS, and tvOS development. It\'s designed to be fast, safe, and expressive.',
+      useCases:
+          'iOS Development, macOS Apps, watchOS Apps, tvOS Apps, Server-side Swift',
       sampleCode: '''// Hello World in Swift
 print("Hello, World!")
 
@@ -257,9 +275,12 @@ print(greet("Developer"))''',
       name: 'Kotlin',
       emoji: '🎯',
       tagline: '"Concise. Safe. Interoperable."',
-      bio: 'JetBrains created me to fix Java\'s pain points. Now I\'m Google\'s preferred language for Android! Modern, concise, and 100% compatible with Java. Let\'s build something awesome! 🤖',
-      description: 'Kotlin is a modern, statically-typed programming language developed by JetBrains in 2011. Google announced it as the preferred language for Android development in 2019.',
-      useCases: 'Android Development, Backend Development, Multiplatform Mobile, Web Development, Server-side Apps',
+      bio:
+          'JetBrains created me to fix Java\'s pain points. Now I\'m Google\'s preferred language for Android! Modern, concise, and 100% compatible with Java. Let\'s build something awesome! 🤖',
+      description:
+          'Kotlin is a modern, statically-typed programming language developed by JetBrains in 2011. Google announced it as the preferred language for Android development in 2019.',
+      useCases:
+          'Android Development, Backend Development, Multiplatform Mobile, Web Development, Server-side Apps',
       sampleCode: '''// Hello World in Kotlin
 fun main() {
     println("Hello, World!")
@@ -289,9 +310,12 @@ fun main() {
       name: 'C++',
       emoji: '⚙️',
       tagline: '"Performance is everything"',
-      bio: 'The OG powerhouse! Game engines? Check. Operating systems? Check. I\'m complex, yes, but when you need raw power and control, I\'m still unbeatable. Respect your elders! 💪',
-      description: 'C++ was created by Bjarne Stroustrup in 1985 as an extension of C. It provides low-level memory control with high-level features like OOP, making it ideal for performance-critical applications.',
-      useCases: 'Game Development (Unreal Engine), Systems Programming, Embedded Systems, High-Performance Computing, Financial Systems',
+      bio:
+          'The OG powerhouse! Game engines? Check. Operating systems? Check. I\'m complex, yes, but when you need raw power and control, I\'m still unbeatable. Respect your elders! 💪',
+      description:
+          'C++ was created by Bjarne Stroustrup in 1985 as an extension of C. It provides low-level memory control with high-level features like OOP, making it ideal for performance-critical applications.',
+      useCases:
+          'Game Development (Unreal Engine), Systems Programming, Embedded Systems, High-Performance Computing, Financial Systems',
       sampleCode: '''// Hello World in C++
 #include <iostream>
 #include <string>
@@ -324,9 +348,12 @@ int main() {
       name: 'Java',
       emoji: '☕',
       tagline: '"Write once, run anywhere"',
-      bio: 'Enterprise is my domain! Been around since \'95 and still going strong. Verbose? Maybe. Reliable? Absolutely! Billions of devices run me. Legacy legend! 🏢',
-      description: 'Java is a class-based, object-oriented programming language developed by Sun Microsystems in 1995. It\'s known for its "write once, run anywhere" philosophy via the JVM.',
-      useCases: 'Enterprise Applications, Android Development, Backend Services, Big Data (Hadoop), Desktop Applications',
+      bio:
+          'Enterprise is my domain! Been around since \'95 and still going strong. Verbose? Maybe. Reliable? Absolutely! Billions of devices run me. Legacy legend! 🏢',
+      description:
+          'Java is a class-based, object-oriented programming language developed by Sun Microsystems in 1995. It\'s known for its "write once, run anywhere" philosophy via the JVM.',
+      useCases:
+          'Enterprise Applications, Android Development, Backend Services, Big Data (Hadoop), Desktop Applications',
       sampleCode: '''// Hello World in Java
 public class HelloWorld {
     public static void main(String[] args) {
@@ -356,9 +383,12 @@ public class HelloWorld {
       name: 'Ruby',
       emoji: '💎',
       tagline: '"Optimize for happiness"',
-      bio: 'I\'m elegant, expressive, and all about making developers happy. Rails made me famous for web apps. Life\'s too short for ugly code - let\'s write poetry together! ✨',
-      description: 'Ruby is a dynamic, object-oriented language created by Yukihiro Matsumoto in 1995. Its philosophy emphasizes simplicity and productivity with an elegant syntax.',
-      useCases: 'Web Development (Ruby on Rails), Automation Scripts, DevOps Tools, Prototyping, Data Processing',
+      bio:
+          'I\'m elegant, expressive, and all about making developers happy. Rails made me famous for web apps. Life\'s too short for ugly code - let\'s write poetry together! ✨',
+      description:
+          'Ruby is a dynamic, object-oriented language created by Yukihiro Matsumoto in 1995. Its philosophy emphasizes simplicity and productivity with an elegant syntax.',
+      useCases:
+          'Web Development (Ruby on Rails), Automation Scripts, DevOps Tools, Prototyping, Data Processing',
       sampleCode: '''# Hello World in Ruby
 puts "Hello, World!"
 
@@ -390,9 +420,7 @@ puts greet("Developer")''',
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF1a1a1a),
-      body: _currentIndex == 0
-          ? _buildSwipeView()
-          : _buildMatchesView(),
+      body: _currentIndex == 0 ? _buildSwipeView() : _buildMatchesView(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
@@ -414,9 +442,8 @@ puts greet("Developer")''',
   }
 
   Widget _buildSwipeView() {
-    final availableLanguages = _languages
-        .where((lang) => !_matches.contains(lang))
-        .toList();
+  final availableLanguages =
+    _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
 
     if (availableLanguages.isEmpty) {
       return Center(
@@ -604,16 +631,21 @@ puts greet("Developer")''',
   }
 
   void _skipLanguage() {
-    setState(() {
-      // Just skip, don't add to matches
-    });
+    final availableLanguages =
+        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
+
+    if (availableLanguages.isNotEmpty) {
+      setState(() {
+        // Add the current language to skipped so it won't appear again
+        _skipped.add(availableLanguages[0]);
+      });
+    }
   }
 
   void _likeLanguage() {
-    final availableLanguages = _languages
-        .where((lang) => !_matches.contains(lang))
-        .toList();
-    
+    final availableLanguages =
+        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
+
     if (availableLanguages.isNotEmpty) {
       setState(() {
         _matches.add(availableLanguages[0]);
