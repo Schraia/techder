@@ -9,6 +9,7 @@ class ProgrammingLanguage {
   final String difficulty;
   final List<String> tags;
   final List<String> resources;
+  final List<String> roadmap; // New field added
 
   ProgrammingLanguage({
     required this.name,
@@ -21,6 +22,7 @@ class ProgrammingLanguage {
     required this.difficulty,
     required this.tags,
     required this.resources,
+    required this.roadmap, // New field required
   });
 }
 
@@ -55,6 +57,13 @@ print(greet("Developer"))''',
       'Automate the Boring Stuff - https://automatetheboringstuff.com/',
       'Real Python - https://realpython.com/',
       'Python for Everybody (Coursera) - https://www.coursera.org/specializations/python',
+    ],
+    roadmap: [
+      'Master the Core Syntax, variables, loops, and conditional statements.',
+      'Dive into Data Structures: Lists, Dictionaries, Sets, and Tuples.',
+      'Explore Web/Automation: Build a basic web scraper using the `requests` library or an automated script.',
+      'Data Science Fundamentals: Learn to use Pandas for data manipulation and NumPy for numerical operations.',
+      'Advanced Projects: Develop a machine learning model using Scikit-learn or a powerful backend using Django.',
     ],
   ),
   ProgrammingLanguage(
@@ -92,6 +101,13 @@ console.log(greet("Developer"));''',
       'Eloquent JavaScript - https://eloquentjavascript.net/',
       'FreeCodeCamp JS Course - https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/',
     ],
+    roadmap: [
+      'Master Modern JS Fundamentals (ES6+): functions, closures, promises, and array methods.',
+      'DOM Manipulation: Learn how to read and modify the Document Object Model to create interactive webpages.',
+      'Framework Specialization: Choose a major framework (React, Angular, or Vue) and build a multi-component app.',
+      'Backend with Node.js: Learn server-side programming using Node.js and Express to build a RESTful API.',
+      'TypeScript & Tooling: Introduce TypeScript for large-scale development and master module bundlers like Webpack/Vite.',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Rust',
@@ -127,6 +143,13 @@ fn greet(name: &str) -> String {
       'Rust by Example - https://doc.rust-lang.org/rust-by-example/',
       'Rustlings - https://github.com/rust-lang/rustlings',
       'Rust official - https://www.rust-lang.org/learn',
+    ],
+    roadmap: [
+      'Basics & Ownership: Master fundamental syntax and the core concept of Ownership, Borrowing, and Lifetimes.',
+      'Structs, Enums, and Pattern Matching: Learn how to define custom types and use pattern matching for flow control.',
+      'Concurrency & Fearless Programming: Explore Rust\'s concurrency primitives like threads and message passing.',
+      'Writing Command Line Tools: Build a practical CLI utility using crates like `clap` to interact with the OS.',
+      'WebAssembly or Game Development: Implement a component in WebAssembly for the browser or start learning a game engine like Bevy.',
     ],
   ),
   ProgrammingLanguage(
@@ -167,6 +190,13 @@ func greet(name string) string {
       'Go by Example - https://gobyexample.com/',
       'Effective Go - https://go.dev/doc/effective_go',
       'Go Documentation - https://go.dev/doc/',
+    ],
+    roadmap: [
+      'Core Syntax & Packages: Master basic syntax, types, and using standard library packages (fmt, net/http).',
+      'Concurrency (Goroutines & Channels): Deep dive into Go\'s key feature: concurrent programming with Goroutines and Channels.',
+      'Web Services: Build a highly performant REST API using the standard library or a framework like Gin.',
+      'Data Persistence: Learn database interactions (SQL, NoSQL) using Go\'s official drivers.',
+      'Cloud Deployment: Build and containerize a microservice using Docker and deploy it to a cloud platform.',
     ],
   ),
   ProgrammingLanguage(
@@ -210,6 +240,13 @@ const dev: Developer = {
       'Understanding TypeScript (course) - https://www.udemy.com/course/understanding-typescript/',
       'TypeScript Deep Dive - https://basarat.gitbook.io/typescript/',
     ],
+    roadmap: [
+      'Type Fundamentals: Understand primitive types, `any` vs `unknown`, type inference, and basic functions.',
+      'Interfaces and Custom Types: Master defining complex data structures using Interfaces and Type Aliases.',
+      'Advanced Utility Types: Learn about Generics, Mapped Types, and Conditional Types for flexible, reusable code.',
+      'Integration with Frameworks: Apply TypeScript rigorously in a React/Angular/Node.js project to enforce type safety.',
+      'Build Tools & Configuration: Become proficient with `tsconfig.json` settings and bundling TypeScript for production.',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Swift',
@@ -251,6 +288,13 @@ print(greet("Developer"))''',
       '100 Days of Swift - https://www.hackingwithswift.com/100',
       'Hacking with Swift - https://www.hackingwithswift.com/',
     ],
+    roadmap: [
+      'Swift Fundamentals: Master Optionals, closures, structs, and classes.',
+      'iOS Basics (UIKit/SwiftUI): Start building small apps and choose either UIKit or modern SwiftUI for UI development.',
+      'Core Frameworks: Learn about core Apple frameworks like Foundation, Core Data, and Grand Central Dispatch (GCD).',
+      'Protocol-Oriented Programming (POP): Understand Swift\'s philosophy of designing with protocols and extensions.',
+      'Advanced Features: Explore error handling, generics, and implement unit and UI testing.',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Kotlin',
@@ -288,6 +332,13 @@ fun main() {
       'Kotlin Koans - https://play.kotlinlang.org/koans/overview',
       'Android Kotlin Guides - https://developer.android.com/kotlin',
       'Kotlin Java Interop - https://kotlinlang.org/docs/java-to-kotlin-interop.html',
+    ],
+    roadmap: [
+      'Syntax & Null Safety: Master the concise syntax, functions, and the non-negotiable null safety features.',
+      'Object-Oriented & Data Classes: Learn about classes, interfaces, inheritance, and the convenience of data classes.',
+      'Android Development: Dive into building a mobile app using Android SDK and Jetpack Compose/Views.',
+      'Coroutines: Master Kotlin\'s structured concurrency model for asynchronous programming.',
+      'Multiplatform Projects: Explore Kotlin Multiplatform Mobile (KMM) for sharing code between Android and iOS.',
     ],
   ),
   ProgrammingLanguage(
@@ -330,6 +381,13 @@ int main() {
       'The C++ Programming Language (Bjarne Stroustrup) - https://www.stroustrup.com/',
       'CppCon - https://cppcon.org/',
     ],
+    roadmap: [
+      'Master the Basics: Learn fundamental C++ syntax, variables, data types, and control flow.',
+      'Deep Dive into OOP: Understand Classes, Objects, Inheritance, Polymorphism, and Encapsulation.',
+      'Explore Memory Management: Master Pointers, References, and Manual Memory Management (malloc/free or new/delete).',
+      'Standard Template Library (STL): Become proficient with containers (Vector, Map), algorithms, and iterators.',
+      'Systems & Performance: Study low-level programming concepts, build a small game engine or a high-performance utility.',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Java',
@@ -368,6 +426,13 @@ public class HelloWorld {
       'Head First Java - https://www.oreilly.com/library/view/head-first-java/0596009208/',
       'Effective Java - https://www.pearson.com/store/p/effective-java/P100000528830',
     ],
+    roadmap: [
+      'Core Java (OOP): Master classes, interfaces, inheritance, and the Java Collections Framework (List, Map).',
+      'JVM & Memory: Understand the Java Virtual Machine, garbage collection, and exception handling.',
+      'Enterprise Development (Spring): Learn the Spring Boot framework to build robust backend microservices.',
+      'Concurrency & Multithreading: Explore Java\'s threading model and concurrent utilities.',
+      'Testing & Ecosystem: Master unit testing with JUnit and explore tools like Maven or Gradle for dependency management.',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Ruby',
@@ -405,6 +470,13 @@ puts greet("Developer")''',
       'Try Ruby - https://try.ruby-lang.org/',
       'The Ruby Way - https://pragprog.com/titles/ruby4/the-ruby-way/',
       'Ruby on Rails Guides - https://guides.rubyonrails.org/',
+    ],
+    roadmap: [
+      'Ruby Fundamentals: Master core language features, including expressive syntax, blocks, procs, and lambdas.',
+      'Object-Oriented Ruby: Deepen understanding of classes, modules, and metaprogramming features.',
+      'Web Development (Rails): Start building a dynamic web application using the Ruby on Rails framework.',
+      'Databases & ActiveRecord: Learn how to interact with databases using Rails\' Object-Relational Mapping (ORM), ActiveRecord.',
+      'Testing & Deployment: Master RSpec for testing and deploy a Rails application to a service like Heroku or AWS.',
     ],
   ),
 ];

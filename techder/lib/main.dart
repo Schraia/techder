@@ -77,8 +77,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSwipeView() {
-  final availableLanguages =
-    _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
+    final availableLanguages = _languages
+        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
+        .toList();
 
     if (availableLanguages.isEmpty) {
       return Center(
@@ -226,7 +227,8 @@ class _HomePageState extends State<HomePage> {
                           : Colors.orange,
                 ),
                 ...language.tags.map((t) => Chip(
-                      label: Text(t, style: const TextStyle(color: Colors.white)),
+                      label:
+                          Text(t, style: const TextStyle(color: Colors.white)),
                       backgroundColor: Colors.grey[700],
                     )),
               ],
@@ -288,8 +290,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _skipLanguage() {
-    final availableLanguages =
-        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
+    final availableLanguages = _languages
+        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
+        .toList();
 
     if (availableLanguages.isNotEmpty) {
       setState(() {
@@ -300,8 +303,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _likeLanguage() {
-    final availableLanguages =
-        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
+    final availableLanguages = _languages
+        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
+        .toList();
 
     if (availableLanguages.isNotEmpty) {
       setState(() {
@@ -406,7 +410,9 @@ class _HomePageState extends State<HomePage> {
                 spacing: 6,
                 children: [
                   Chip(
-                    label: Text(language.difficulty, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                    label: Text(language.difficulty,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12)),
                     backgroundColor: language.difficulty.toLowerCase() == 'easy'
                         ? Colors.green
                         : language.difficulty.toLowerCase() == 'hard'
@@ -415,7 +421,9 @@ class _HomePageState extends State<HomePage> {
                     visualDensity: VisualDensity.compact,
                   ),
                   ...language.tags.map((t) => Chip(
-                        label: Text(t, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                        label: Text(t,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12)),
                         backgroundColor: Colors.grey[700],
                         visualDensity: VisualDensity.compact,
                       )),
@@ -456,6 +464,58 @@ class ProfileScreen extends StatelessWidget {
   final ProgrammingLanguage language;
 
   const ProfileScreen({Key? key, required this.language}) : super(key: key);
+
+  // New widget to build a section that contains a numbered list (roadmap)
+  Widget _buildListSection(String title, List<String> items) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.pink,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...items.asMap().entries.map((entry) {
+            final index = entry.key + 1;
+            final item = entry.value;
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '$index.',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        height: 1.6,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -508,6 +568,12 @@ class ProfileScreen extends StatelessWidget {
               'About',
               language.description,
             ),
+            // NEW ROADMAP SECTION
+            _buildListSection(
+              'Your 5-Step Roadmap',
+              language.roadmap,
+            ),
+            // END NEW ROADMAP SECTION
             _buildSection(
               'Common Use Cases',
               language.useCases,
@@ -593,7 +659,8 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildResourcesSection(BuildContext context, String title, List<String> resources) {
+  Widget _buildResourcesSection(
+      BuildContext context, String title, List<String> resources) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -612,7 +679,8 @@ class ProfileScreen extends StatelessWidget {
             // Expect resource strings in format: "Label - https://..."
             final parts = resource.split(' - ');
             final label = parts.isNotEmpty ? parts[0] : resource;
-            final url = parts.length > 1 ? parts.sublist(1).join(' - ').trim() : '';
+            final url =
+                parts.length > 1 ? parts.sublist(1).join(' - ').trim() : '';
 
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -632,10 +700,12 @@ class ProfileScreen extends StatelessWidget {
                               try {
                                 final uri = Uri.parse(url);
                                 if (await canLaunchUrl(uri)) {
-                                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                                  await launchUrl(uri,
+                                      mode: LaunchMode.externalApplication);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Could not open: $url')),
+                                    SnackBar(
+                                        content: Text('Could not open: $url')),
                                   );
                                 }
                               } catch (e) {
@@ -666,7 +736,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             );
-          }),
+          }).toList(),
         ],
       ),
     );
