@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'languages.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http; 
 
 void main() {
   runApp(const TechTinderApp());
@@ -77,9 +79,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSwipeView() {
-    final availableLanguages = _languages
-        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
-        .toList();
+  final availableLanguages =
+    _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
 
     if (availableLanguages.isEmpty) {
       return Center(
@@ -227,8 +228,7 @@ class _HomePageState extends State<HomePage> {
                           : Colors.orange,
                 ),
                 ...language.tags.map((t) => Chip(
-                      label:
-                          Text(t, style: const TextStyle(color: Colors.white)),
+                      label: Text(t, style: const TextStyle(color: Colors.white)),
                       backgroundColor: Colors.grey[700],
                     )),
               ],
@@ -290,9 +290,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _skipLanguage() {
-    final availableLanguages = _languages
-        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
-        .toList();
+    final availableLanguages =
+        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
 
     if (availableLanguages.isNotEmpty) {
       setState(() {
@@ -303,9 +302,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _likeLanguage() {
-    final availableLanguages = _languages
-        .where((lang) => !_matches.contains(lang) && !_skipped.contains(lang))
-        .toList();
+    final availableLanguages =
+        _languages.where((lang) => !_matches.contains(lang) && !_skipped.contains(lang)).toList();
 
     if (availableLanguages.isNotEmpty) {
       setState(() {
@@ -410,9 +408,7 @@ class _HomePageState extends State<HomePage> {
                 spacing: 6,
                 children: [
                   Chip(
-                    label: Text(language.difficulty,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12)),
+                    label: Text(language.difficulty, style: const TextStyle(color: Colors.white, fontSize: 12)),
                     backgroundColor: language.difficulty.toLowerCase() == 'easy'
                         ? Colors.green
                         : language.difficulty.toLowerCase() == 'hard'
@@ -421,9 +417,7 @@ class _HomePageState extends State<HomePage> {
                     visualDensity: VisualDensity.compact,
                   ),
                   ...language.tags.map((t) => Chip(
-                        label: Text(t,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 12)),
+                        label: Text(t, style: const TextStyle(color: Colors.white, fontSize: 12)),
                         backgroundColor: Colors.grey[700],
                         visualDensity: VisualDensity.compact,
                       )),
@@ -465,8 +459,8 @@ class ProfileScreen extends StatelessWidget {
 
   const ProfileScreen({Key? key, required this.language}) : super(key: key);
 
-  // New widget to build a section that contains a numbered list (roadmap)
-  Widget _buildListSection(String title, List<String> items) {
+// New widget to build a section that contains a numbered list (roadmap)
+Widget _buildListSection(String title, List<String> items) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -515,7 +509,7 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
-  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -591,6 +585,20 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+      // NEW: Floating Action Button to start the chat
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(language: language),
+            ),
+          );
+        },
+        label: Text('Chat with ${language.name}'),
+        icon: const Icon(Icons.chat),
+        backgroundColor: Colors.pink,
+      ),
     );
   }
 
@@ -659,8 +667,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildResourcesSection(
-      BuildContext context, String title, List<String> resources) {
+  Widget _buildResourcesSection(BuildContext context, String title, List<String> resources) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -679,8 +686,7 @@ class ProfileScreen extends StatelessWidget {
             // Expect resource strings in format: "Label - https://..."
             final parts = resource.split(' - ');
             final label = parts.isNotEmpty ? parts[0] : resource;
-            final url =
-                parts.length > 1 ? parts.sublist(1).join(' - ').trim() : '';
+            final url = parts.length > 1 ? parts.sublist(1).join(' - ').trim() : '';
 
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -700,12 +706,10 @@ class ProfileScreen extends StatelessWidget {
                               try {
                                 final uri = Uri.parse(url);
                                 if (await canLaunchUrl(uri)) {
-                                  await launchUrl(uri,
-                                      mode: LaunchMode.externalApplication);
+                                  await launchUrl(uri, mode: LaunchMode.externalApplication);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Could not open: $url')),
+                                    SnackBar(content: Text('Could not open: $url')),
                                   );
                                 }
                               } catch (e) {
@@ -740,5 +744,264 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// --- NEW CHAT SCREEN IMPLEMENTATION ---
+
+class ChatScreen extends StatefulWidget {
+  final ProgrammingLanguage language;
+  const ChatScreen({Key? key, required this.language}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _controller = TextEditingController();
+  // Messages stored as map: {'sender': 'User' or 'AI', 'text': 'message'}
+  final List<Map<String, String>> _messages = [];
+  bool _isLoading = false;
+
+  // --- API Configuration ---
+  // NOTE: You must replace "" with your actual API key
+  static const _kApiKey = "AIzaSyCS8xCajNNoLrnqCjp3i-RvzURldijgGOA"; 
+  static const _kApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent';
+  // --- End API Configuration ---
+
+  @override
+  void initState() {
+    super.initState();
+    // Initial engaging message from the "language" persona
+    _messages.add({
+      'sender': 'AI',
+      'text':
+          'Hey cutie! I’m ${widget.language.name} ${widget.language.emoji}. Let’s make the perfect match — what kind of project are you looking to fall in love with?',
+    });
+  }
+
+  Future<String> _handleGeminiRequest(String userQuery) async {
+    // 1. Construct the System Prompt
+    final systemPrompt =
+        "Act as you are in a dating app. You are the ${widget.language.name} Programming Language. Your responses should be playful, engaging, and based on your core features and use cases (${widget.language.useCases}). Your persona is defined by your bio: \"${widget.language.bio}\"";
+
+    // 2. Construct the API Payload
+    final payload = {
+      'contents': [
+        {
+          'parts': [
+            {'text': userQuery}
+          ]
+        }
+      ],
+      'systemInstruction': {
+        'parts': [
+          {'text': systemPrompt}
+        ]
+      },
+      // Enable Google Search for grounded responses
+      'tools': [
+        {'google_search': {}}
+      ],
+    };
+
+    // 3. Prepare URL and perform request with exponential backoff
+    final uri = Uri.parse('$_kApiUrl?key=$_kApiKey');
+    
+    for (int attempt = 0; attempt < 5; attempt++) {
+      try {
+        final response = await http.post(
+          uri,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(payload),
+        );
+
+        if (response.statusCode == 200) {
+          final result = jsonDecode(response.body);
+          // Safely extract the generated text
+          final text = result['candidates']?[0]['content']?['parts']?[0]?['text'] ??
+              'Sorry, I got distracted by a shiny new feature. Could you try again?';
+          
+          return text;
+        } else if (response.statusCode == 429 || response.statusCode >= 500) {
+          // Handle rate limiting (429) or server errors (5xx) with backoff
+          if (attempt < 4) {
+            await Future.delayed(Duration(seconds: 1 << attempt));
+            continue; // Retry the request
+          }
+          throw Exception('API failed after multiple retries.');
+        } else {
+          // Handle non-retriable client errors (4xx)
+          throw Exception('API failed with status ${response.statusCode}: ${response.body}');
+        }
+      } catch (e) {
+        // Handle network errors or decoding errors
+        if (attempt < 4) {
+            await Future.delayed(Duration(seconds: 1 << attempt));
+            continue; // Retry the request
+        }
+        throw Exception('Network request failed: $e');
+      }
+    }
+    // Should be unreachable, but here for completeness
+    throw Exception('Failed to get a response from the API.');
+  }
+
+  void _sendMessage() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty || _isLoading) return;
+    if (_kApiKey.isEmpty) {
+       _messages.add({'sender': 'AI', 'text': 'ERROR: The API Key is empty. Please add your Gemini API Key to the `_kApiKey` constant in main.dart to enable the chat.'});
+       setState(() {});
+       return;
+    }
+
+    setState(() {
+      _messages.add({'sender': 'User', 'text': text});
+      _controller.clear();
+      _isLoading = true;
+    });
+
+    try {
+      final responseText = await _handleGeminiRequest(text);
+
+      setState(() {
+        _messages.add({'sender': 'AI', 'text': responseText});
+        _isLoading = false;
+      });
+    } catch (e) {
+      // Show error in the chat bubble
+      setState(() {
+        _messages.add({'sender': 'AI', 'text': 'Error communicating with the AI: ${e.toString()}'});
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF1a1a1a),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF2a2a2a),
+        title: Text('Chatting with ${widget.language.name}'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(16.0),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final message = _messages[_messages.length - 1 - index];
+                return _buildMessageBubble(message['text']!, message['sender'] == 'AI');
+              },
+            ),
+          ),
+          if (_isLoading)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: LinearProgressIndicator(color: Colors.pink),
+            ),
+          _buildInputBar(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessageBubble(String text, bool isAI) {
+    return Align(
+      alignment: isAI ? Alignment.centerLeft : Alignment.centerRight,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: isAI ? const Color(0xFF2a2a2a) : Colors.pink,
+          borderRadius: BorderRadius.circular(16.0).copyWith(
+            topLeft: isAI ? Radius.zero : const Radius.circular(16.0),
+            topRight: isAI ? const Radius.circular(16.0) : Radius.zero,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: (isAI ? Colors.grey : Colors.pink).withOpacity(0.1),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Text(
+          text,
+          style: TextStyle(color: isAI ? Colors.white : Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInputBar() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      color: const Color(0xFF2a2a2a),
+      child: SafeArea(
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                onSubmitted: (value) => _sendMessage(),
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Ask ${widget.language.name} about a project...',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
+                  filled: true,
+                  fillColor: const Color(0xFF1a1a1a),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.pink,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.pink.withOpacity(0.5),
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: IconButton(
+                icon: _isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Icon(Icons.send, color: Colors.white),
+                onPressed: _sendMessage,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
