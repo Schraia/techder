@@ -6,8 +6,8 @@ class ProgrammingLanguage {
   final String description;
   final String useCases;
   final String sampleCode;
-    final String difficulty;
-    final List<String> tags;
+  final String difficulty;
+  final List<String> tags;
   final List<String> resources;
 
   ProgrammingLanguage({
@@ -18,8 +18,8 @@ class ProgrammingLanguage {
     required this.description,
     required this.useCases,
     required this.sampleCode,
-        required this.difficulty,
-        required this.tags,
+    required this.difficulty,
+    required this.tags,
     required this.resources,
   });
 }
@@ -28,7 +28,8 @@ final List<ProgrammingLanguage> allLanguages = [
   ProgrammingLanguage(
     name: 'Python',
     emoji: '🐍',
-    tagline: '"Life is short, use Python"',
+    tagline:
+        "I'm everyone's type: Simple, helpful, and I can do *anything*. Swipe right for AI & automation. 🧠✨",
     bio:
         'I\'m the friendly one everyone loves. Simple, elegant, and I can do pretty much anything from web apps to AI. Want to automate your life? I\'m your snake! 🎯',
     description:
@@ -49,17 +50,18 @@ def greet(name):
 print(greet("Developer"))''',
     difficulty: 'Easy',
     tags: ['Procedural', 'Object-oriented', 'Functional'],
-        resources: [
-            'Python.org - https://www.python.org/',
-            'Automate the Boring Stuff - https://automatetheboringstuff.com/',
-            'Real Python - https://realpython.com/',
-            'Python for Everybody (Coursera) - https://www.coursera.org/specializations/python',
-        ],
+    resources: [
+      'Python.org - https://www.python.org/',
+      'Automate the Boring Stuff - https://automatetheboringstuff.com/',
+      'Real Python - https://realpython.com/',
+      'Python for Everybody (Coursera) - https://www.coursera.org/specializations/python',
+    ],
   ),
   ProgrammingLanguage(
     name: 'JavaScript',
     emoji: '⚡',
-    tagline: '"I run the web"',
+    tagline:
+        "Commitment issues? I'm already everywhere you go. I run the *entire* web (and the server). Full-stack, baby. 🌐🔥",
     bio:
         'Versatile, everywhere, and a bit chaotic. I started in browsers but now I\'m on servers too! Love me or hate me, you can\'t escape me. Full-stack is my middle name! 💛',
     description:
@@ -84,17 +86,18 @@ const add = (a, b) => a + b;
 console.log(greet("Developer"));''',
     difficulty: 'Normal',
     tags: ['Event-driven', 'Functional', 'Object-oriented'],
-        resources: [
-            'MDN Web Docs - https://developer.mozilla.org/en-US/docs/Web/JavaScript',
-            'JavaScript.info - https://javascript.info/',
-            'Eloquent JavaScript - https://eloquentjavascript.net/',
-            'FreeCodeCamp JS Course - https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/',
-        ],
+    resources: [
+      'MDN Web Docs - https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+      'JavaScript.info - https://javascript.info/',
+      'Eloquent JavaScript - https://eloquentjavascript.net/',
+      'FreeCodeCamp JS Course - https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Rust',
     emoji: '🦀',
-    tagline: '"Fearless concurrency"',
+    tagline:
+        "I'm safe but strict, but trust me... I won't let you down. Only looking for long-term, high-performance relationships. 🛡️🚀",
     bio:
         'I\'m the safe choice - literally! Memory safety without garbage collection? That\'s me. A bit strict with rules, but hey, I prevent those nasty bugs. Performance with safety! 🛡️',
     description:
@@ -119,17 +122,18 @@ fn greet(name: &str) -> String {
 }''',
     difficulty: 'Hard',
     tags: ['Systems', 'Functional', 'Concurrent'],
-        resources: [
-            'The Rust Programming Language (The Book) - https://doc.rust-lang.org/book/',
-            'Rust by Example - https://doc.rust-lang.org/rust-by-example/',
-            'Rustlings - https://github.com/rust-lang/rustlings',
-            'Rust official - https://www.rust-lang.org/learn',
-        ],
+    resources: [
+      'The Rust Programming Language (The Book) - https://doc.rust-lang.org/book/',
+      'Rust by Example - https://doc.rust-lang.org/rust-by-example/',
+      'Rustlings - https://github.com/rust-lang/rustlings',
+      'Rust official - https://www.rust-lang.org/learn',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Go',
     emoji: '🐹',
-    tagline: '"Less is exponentially more"',
+    tagline:
+        "A minimalist from Google. I keep things simple, fast, and I scale under pressure. Let's build a cloud together. ☁️💻",
     bio:
         'Simple, fast, and built for the cloud! Created by Google legends, I\'m perfect for microservices and concurrent systems. No fancy features, just pure efficiency! ☁️',
     description:
@@ -158,17 +162,18 @@ func greet(name string) string {
 }''',
     difficulty: 'Normal',
     tags: ['Procedural', 'Concurrent'],
-        resources: [
-            'Tour of Go - https://tour.golang.org/',
-            'Go by Example - https://gobyexample.com/',
-            'Effective Go - https://go.dev/doc/effective_go',
-            'Go Documentation - https://go.dev/doc/',
-        ],
+    resources: [
+      'Tour of Go - https://tour.golang.org/',
+      'Go by Example - https://gobyexample.com/',
+      'Effective Go - https://go.dev/doc/effective_go',
+      'Go Documentation - https://go.dev/doc/',
+    ],
   ),
   ProgrammingLanguage(
     name: 'TypeScript',
     emoji: '💙',
-    tagline: '"JavaScript that scales"',
+    tagline:
+        "I'm JavaScript with my life together. Organized, planned, and I catch errors before you even make them. The mature upgrade. ✅💙",
     bio:
         'I\'m JavaScript\'s sophisticated sibling. I add types to keep things organized and catch errors before they happen. Big projects? I\'m your type! 😎',
     description:
@@ -199,17 +204,18 @@ const dev: Developer = {
 };''',
     difficulty: 'Normal',
     tags: ['Typed', 'Object-oriented', 'Functional'],
-        resources: [
-            'TypeScript Official - https://www.typescriptlang.org/',
-            'TypeScript Handbook - https://www.typescriptlang.org/docs/handbook/intro.html',
-            'Understanding TypeScript (course) - https://www.udemy.com/course/understanding-typescript/',
-            'TypeScript Deep Dive - https://basarat.gitbook.io/typescript/',
-        ],
+    resources: [
+      'TypeScript Official - https://www.typescriptlang.org/',
+      'TypeScript Handbook - https://www.typescriptlang.org/docs/handbook/intro.html',
+      'Understanding TypeScript (course) - https://www.udemy.com/course/understanding-typescript/',
+      'TypeScript Deep Dive - https://basarat.gitbook.io/typescript/',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Swift',
     emoji: '🦅',
-    tagline: '"Fast. Modern. Safe."',
+    tagline:
+        "Apple's exclusive. If you like sleek, high-performing apps on your iPhone, I'm the only call you need to make. 📱🍎",
     bio:
         'Apple\'s golden child! I make iOS and Mac apps beautiful and performant. Clean syntax, powerful features, and I\'m faster than you think. Ready to build the next big app? 📱',
     description:
@@ -232,24 +238,25 @@ func greet(_ name: String) -> String {
 class Developer {
     var name: String
     init(name: String) {
-        this.name = name
+        self.name = name
     }
 }
 
 print(greet("Developer"))''',
     difficulty: 'Normal',
     tags: ['Object-oriented', 'Protocol-oriented'],
-        resources: [
-            'Swift.org - https://swift.org/',
-            'Swift Playgrounds - https://www.apple.com/swift/playgrounds/',
-            '100 Days of Swift - https://www.hackingwithswift.com/100',
-            'Hacking with Swift - https://www.hackingwithswift.com/',
-        ],
+    resources: [
+      'Swift.org - https://swift.org/',
+      'Swift Playgrounds - https://www.apple.com/swift/playgrounds/',
+      '100 Days of Swift - https://www.hackingwithswift.com/100',
+      'Hacking with Swift - https://www.hackingwithswift.com/',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Kotlin',
     emoji: '🎯',
-    tagline: '"Concise. Safe. Interoperable."',
+    tagline:
+        "Google's favorite for Android. I fix all of Java's red flags. Concise, modern, and 100% compatible with your ex. 🤖✨",
     bio:
         'JetBrains created me to fix Java\'s pain points. Now I\'m Google\'s preferred language for Android! Modern, concise, and 100% compatible with Java. Let\'s build something awesome! 🤖',
     description:
@@ -276,17 +283,18 @@ fun main() {
 }''',
     difficulty: 'Normal',
     tags: ['Object-oriented', 'Functional'],
-        resources: [
-            'Kotlin Official - https://kotlinlang.org/',
-            'Kotlin Koans - https://play.kotlinlang.org/koans/overview',
-            'Android Kotlin Guides - https://developer.android.com/kotlin',
-            'Kotlin Java Interop - https://kotlinlang.org/docs/java-to-kotlin-interop.html',
-        ],
+    resources: [
+      'Kotlin Official - https://kotlinlang.org/',
+      'Kotlin Koans - https://play.kotlinlang.org/koans/overview',
+      'Android Kotlin Guides - https://developer.android.com/kotlin',
+      'Kotlin Java Interop - https://kotlinlang.org/docs/java-to-kotlin-interop.html',
+    ],
   ),
   ProgrammingLanguage(
     name: 'C++',
     emoji: '⚙️',
-    tagline: '"Performance is everything"',
+    tagline:
+        "The OG powerhouse. I'm complex, require full control, but I deliver raw, unbeatable *performance*. Respect your elders. ⚙️🏎️",
     bio:
         'The OG powerhouse! Game engines? Check. Operating systems? Check. I\'m complex, yes, but when you need raw power and control, I\'m still unbeatable. Respect your elders! 💪',
     description:
@@ -316,17 +324,18 @@ int main() {
 }''',
     difficulty: 'Hard',
     tags: ['Procedural', 'Object-oriented', 'Systems'],
-        resources: [
-            'LearnCpp - https://www.learncpp.com/',
-            'C++ Reference - https://en.cppreference.com/w/',
-            'The C++ Programming Language (Bjarne Stroustrup) - https://www.stroustrup.com/',
-            'CppCon - https://cppcon.org/',
-        ],
+    resources: [
+      'LearnCpp - https://www.learncpp.com/',
+      'C++ Reference - https://en.cppreference.com/w/',
+      'The C++ Programming Language (Bjarne Stroustrup) - https://www.stroustrup.com/',
+      'CppCon - https://cppcon.org/',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Java',
     emoji: '☕',
-    tagline: '"Write once, run anywhere"',
+    tagline:
+        "I'm an Enterprise Legend. I'm reliable, everywhere, and I've been running the world since '95. Looking for serious, corporate commitment. 🏢☕",
     bio:
         'Enterprise is my domain! Been around since \'95 and still going strong. Verbose? Maybe. Reliable? Absolutely! Billions of devices run me. Legacy legend! 🏢',
     description:
@@ -353,17 +362,18 @@ public class HelloWorld {
 }''',
     difficulty: 'Normal',
     tags: ['Object-oriented'],
-        resources: [
-            'Oracle Java Tutorials - https://docs.oracle.com/javase/tutorial/',
-            'Java Documentation - https://docs.oracle.com/en/java/',
-            'Head First Java - https://www.oreilly.com/library/view/head-first-java/0596009208/',
-            'Effective Java - https://www.pearson.com/store/p/effective-java/P100000528830',
-        ],
+    resources: [
+      'Oracle Java Tutorials - https://docs.oracle.com/javase/tutorial/',
+      'Java Documentation - https://docs.oracle.com/en/java/',
+      'Head First Java - https://www.oreilly.com/library/view/head-first-java/0596009208/',
+      'Effective Java - https://www.pearson.com/store/p/effective-java/P100000528830',
+    ],
   ),
   ProgrammingLanguage(
     name: 'Ruby',
     emoji: '💎',
-    tagline: '"Optimize for happiness"',
+    tagline:
+        "I value your happiness above all else. I'm elegant, expressive, and I turn ideas into web apps (Rails) with *joy*. 💖💎",
     bio:
         'I\'m elegant, expressive, and all about making developers happy. Rails made me famous for web apps. Life\'s too short for ugly code - let\'s write poetry together! ✨',
     description:
@@ -390,11 +400,11 @@ end
 puts greet("Developer")''',
     difficulty: 'Easy',
     tags: ['Object-oriented', 'Scripting'],
-        resources: [
-            'Ruby-lang.org - https://www.ruby-lang.org/en/',
-            'Try Ruby - https://try.ruby-lang.org/',
-            'The Ruby Way - https://pragprog.com/titles/ruby4/the-ruby-way/',
-            'Ruby on Rails Guides - https://guides.rubyonrails.org/',
-        ],
+    resources: [
+      'Ruby-lang.org - https://www.ruby-lang.org/en/',
+      'Try Ruby - https://try.ruby-lang.org/',
+      'The Ruby Way - https://pragprog.com/titles/ruby4/the-ruby-way/',
+      'Ruby on Rails Guides - https://guides.rubyonrails.org/',
+    ],
   ),
 ];
