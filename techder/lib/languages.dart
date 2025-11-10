@@ -9,7 +9,8 @@ class ProgrammingLanguage {
   final String difficulty;
   final List<String> tags;
   final List<String> resources;
-  final List<String> roadmap; // New field added
+  final List<String> roadmap;
+  final String initialChat;
 
   ProgrammingLanguage({
     required this.name,
@@ -22,7 +23,8 @@ class ProgrammingLanguage {
     required this.difficulty,
     required this.tags,
     required this.resources,
-    required this.roadmap, // New field required
+    required this.roadmap,
+    required this.initialChat,
   });
 }
 
@@ -31,7 +33,7 @@ final List<ProgrammingLanguage> allLanguages = [
     name: 'Python',
     emoji: '🐍',
     tagline:
-        "I'm everyone's type: Simple, helpful, and I can do *anything*. Swipe right for AI & automation. 🧠✨",
+        "I'm everyone's type: Simple, helpful, and I can do anything. Swipe right for AI & automation. 🧠✨",
     bio:
         'I\'m the friendly one everyone loves. Simple, elegant, and I can do pretty much anything from web apps to AI. Want to automate your life? I\'m your snake! 🎯',
     description:
@@ -59,18 +61,19 @@ print(greet("Developer"))''',
       'Python for Everybody (Coursera) - https://www.coursera.org/specializations/python',
     ],
     roadmap: [
-      'Master the Core Syntax, variables, loops, and conditional statements.',
-      'Dive into Data Structures: Lists, Dictionaries, Sets, and Tuples.',
-      'Explore Web/Automation: Build a basic web scraper using the `requests` library or an automated script.',
-      'Data Science Fundamentals: Learn to use Pandas for data manipulation and NumPy for numerical operations.',
-      'Advanced Projects: Develop a machine learning model using Scikit-learn or a powerful backend using Django.',
+      'Master the basics: Syntax, control flow, and data structures (lists, dictionaries).',
+      'Dive into Object-Oriented Programming (OOP) concepts.',
+      'Explore a specialization: Choose between Web (Flask/Django) or Data Science (Pandas/NumPy).',
+      'Learn asynchronous programming and package management (Pip/Virtual Environments).',
+      'Build a complex project like a REST API or a machine learning model.'
     ],
+    initialChat: "Hey Beautiful! I’m Python 🐍, the friendly snake. I'm fluent in AI and automation—let's create something amazing and smart together. What's your passion project?",
   ),
   ProgrammingLanguage(
     name: 'JavaScript',
     emoji: '⚡',
     tagline:
-        "Commitment issues? I'm already everywhere you go. I run the *entire* web (and the server). Full-stack, baby. 🌐🔥",
+        "Commitment issues? I'm already everywhere you go. I run the entire web (and the server). Full-stack, baby. 🌐🔥",
     bio:
         'Versatile, everywhere, and a bit chaotic. I started in browsers but now I\'m on servers too! Love me or hate me, you can\'t escape me. Full-stack is my middle name! 💛',
     description:
@@ -102,12 +105,13 @@ console.log(greet("Developer"));''',
       'FreeCodeCamp JS Course - https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/',
     ],
     roadmap: [
-      'Master Modern JS Fundamentals (ES6+): functions, closures, promises, and array methods.',
-      'DOM Manipulation: Learn how to read and modify the Document Object Model to create interactive webpages.',
-      'Framework Specialization: Choose a major framework (React, Angular, or Vue) and build a multi-component app.',
-      'Backend with Node.js: Learn server-side programming using Node.js and Express to build a RESTful API.',
-      'TypeScript & Tooling: Introduce TypeScript for large-scale development and master module bundlers like Webpack/Vite.',
+      'Understand the core: Variables, scope (var, let, const), closures, and prototypes.',
+      'Master DOM manipulation and asynchronous programming (Promises, async/await).',
+      'Deep dive into a frontend framework (React, Vue, or Angular).',
+      'Learn server-side development using Node.js and Express.',
+      'Build and deploy a full-stack web application.'
     ],
+    initialChat: "Hey Cutie! I’m JavaScript ⚡. I go full-stack, baby! What kind of project are you looking to fall in love with? (Browser or server, I don't judge!)",
   ),
   ProgrammingLanguage(
     name: 'Rust',
@@ -145,12 +149,13 @@ fn greet(name: &str) -> String {
       'Rust official - https://www.rust-lang.org/learn',
     ],
     roadmap: [
-      'Basics & Ownership: Master fundamental syntax and the core concept of Ownership, Borrowing, and Lifetimes.',
-      'Structs, Enums, and Pattern Matching: Learn how to define custom types and use pattern matching for flow control.',
-      'Concurrency & Fearless Programming: Explore Rust\'s concurrency primitives like threads and message passing.',
-      'Writing Command Line Tools: Build a practical CLI utility using crates like `clap` to interact with the OS.',
-      'WebAssembly or Game Development: Implement a component in WebAssembly for the browser or start learning a game engine like Bevy.',
+      'Read "The Rust Book" and understand fundamental syntax and modules.',
+      'Master the concept of Ownership, Borrowing, and Lifetimes (the heart of Rust).',
+      'Practice with Rustlings exercises to reinforce core concepts.',
+      'Explore advanced features like `unsafe` code, smart pointers, and macros.',
+      'Build a multithreaded CLI application or a WebAssembly module.'
     ],
+    initialChat: "Swipe right on Rust 🦀! I'm a little demanding, but I promise zero runtime surprises. Ready for a serious, high-performance commitment, Gorgeous?",
   ),
   ProgrammingLanguage(
     name: 'Go',
@@ -192,12 +197,13 @@ func greet(name string) string {
       'Go Documentation - https://go.dev/doc/',
     ],
     roadmap: [
-      'Core Syntax & Packages: Master basic syntax, types, and using standard library packages (fmt, net/http).',
-      'Concurrency (Goroutines & Channels): Deep dive into Go\'s key feature: concurrent programming with Goroutines and Channels.',
-      'Web Services: Build a highly performant REST API using the standard library or a framework like Gin.',
-      'Data Persistence: Learn database interactions (SQL, NoSQL) using Go\'s official drivers.',
-      'Cloud Deployment: Build and containerize a microservice using Docker and deploy it to a cloud platform.',
+      'Complete the Tour of Go to grasp the basics (syntax, types, packages).',
+      'Understand Interfaces, Structs, and error handling patterns (idiomatic Go).',
+      'Master Goroutines and Channels for concurrent programming.',
+      'Work with standard library packages like `net/http` for building APIs.',
+      'Build a simple scalable microservice or a high-performance network tool.'
     ],
+    initialChat: "Hi Handsome! I’m Go 🐹. I keep things simple, fast, and I scale effortlessly for the cloud. What kind of backend project do you dream of building with me?",
   ),
   ProgrammingLanguage(
     name: 'TypeScript',
@@ -241,12 +247,13 @@ const dev: Developer = {
       'TypeScript Deep Dive - https://basarat.gitbook.io/typescript/',
     ],
     roadmap: [
-      'Type Fundamentals: Understand primitive types, `any` vs `unknown`, type inference, and basic functions.',
-      'Interfaces and Custom Types: Master defining complex data structures using Interfaces and Type Aliases.',
-      'Advanced Utility Types: Learn about Generics, Mapped Types, and Conditional Types for flexible, reusable code.',
-      'Integration with Frameworks: Apply TypeScript rigorously in a React/Angular/Node.js project to enforce type safety.',
-      'Build Tools & Configuration: Become proficient with `tsconfig.json` settings and bundling TypeScript for production.',
+      'Learn basic JavaScript, then introduce static types, interfaces, and classes.',
+      'Understand the compiler options and configuration (`tsconfig.json`).',
+      'Master advanced types: Generics, utility types, and type inference.',
+      'Integrate TypeScript with a major framework (e.g., React or Angular).',
+      'Convert a large, existing JavaScript codebase to TypeScript for practice.'
     ],
+    initialChat: "I'm TypeScript 💙. I bring order and reliability to the relationship, catching errors before they start. Are you ready for a mature, well-typed love, Cutie? 😉",
   ),
   ProgrammingLanguage(
     name: 'Swift',
@@ -289,12 +296,13 @@ print(greet("Developer"))''',
       'Hacking with Swift - https://www.hackingwithswift.com/',
     ],
     roadmap: [
-      'Swift Fundamentals: Master Optionals, closures, structs, and classes.',
-      'iOS Basics (UIKit/SwiftUI): Start building small apps and choose either UIKit or modern SwiftUI for UI development.',
-      'Core Frameworks: Learn about core Apple frameworks like Foundation, Core Data, and Grand Central Dispatch (GCD).',
-      'Protocol-Oriented Programming (POP): Understand Swift\'s philosophy of designing with protocols and extensions.',
-      'Advanced Features: Explore error handling, generics, and implement unit and UI testing.',
+      'Learn Swift fundamentals: variables, control flow, functions, and optionals.',
+      'Master object-oriented programming, structures, and classes.',
+      'Dive into the Apple ecosystem using SwiftUI or UIKit for UI development.',
+      'Understand Protocol-Oriented Programming (POP) and error handling.',
+      'Build and submit a complete, high-quality application to the App Store.'
     ],
+    initialChat: "Hey Gorgeous! I’m Swift 🦅. If you're looking for sleek, fast, and exclusive mobile projects (I'm an Apple darling!), you've found your match. What app concept are you dreaming of building?",
   ),
   ProgrammingLanguage(
     name: 'Kotlin',
@@ -334,18 +342,19 @@ fun main() {
       'Kotlin Java Interop - https://kotlinlang.org/docs/java-to-kotlin-interop.html',
     ],
     roadmap: [
-      'Syntax & Null Safety: Master the concise syntax, functions, and the non-negotiable null safety features.',
-      'Object-Oriented & Data Classes: Learn about classes, interfaces, inheritance, and the convenience of data classes.',
-      'Android Development: Dive into building a mobile app using Android SDK and Jetpack Compose/Views.',
-      'Coroutines: Master Kotlin\'s structured concurrency model for asynchronous programming.',
-      'Multiplatform Projects: Explore Kotlin Multiplatform Mobile (KMM) for sharing code between Android and iOS.',
+      'Learn Kotlin syntax, focusing on null safety and extension functions.',
+      'Master Object-Oriented Programming (OOP) and modern features like data classes.',
+      'Dive into Android development using Jetpack Compose (the modern UI toolkit).',
+      'Explore Kotlin Coroutines for asynchronous programming.',
+      'Build a full-featured Android application using best practices.'
     ],
+    initialChat: "Hey Beautiful! I’m Kotlin 🎯, and I’m looking for my perfect coding partner (especially if they like Android!). What kind of clean, concise project do you dream of building together?",
   ),
   ProgrammingLanguage(
     name: 'C++',
     emoji: '⚙️',
     tagline:
-        "The OG powerhouse. I'm complex, require full control, but I deliver raw, unbeatable *performance*. Respect your elders. ⚙️🏎️",
+        "The OG powerhouse. I'm complex, require full control, but I deliver raw, unbeatable performance. Respect your elders. ⚙️🏎️",
     bio:
         'The OG powerhouse! Game engines? Check. Operating systems? Check. I\'m complex, yes, but when you need raw power and control, I\'m still unbeatable. Respect your elders! 💪',
     description:
@@ -382,12 +391,13 @@ int main() {
       'CppCon - https://cppcon.org/',
     ],
     roadmap: [
-      'Master the Basics: Learn fundamental C++ syntax, variables, data types, and control flow.',
-      'Deep Dive into OOP: Understand Classes, Objects, Inheritance, Polymorphism, and Encapsulation.',
-      'Explore Memory Management: Master Pointers, References, and Manual Memory Management (malloc/free or new/delete).',
-      'Standard Template Library (STL): Become proficient with containers (Vector, Map), algorithms, and iterators.',
-      'Systems & Performance: Study low-level programming concepts, build a small game engine or a high-performance utility.',
+      'Master C fundamentals, pointers, memory allocation, and basic data structures.',
+      'Dive into Object-Oriented Programming (OOP): Classes, inheritance, polymorphism.',
+      'Learn Standard Template Library (STL): Vectors, maps, algorithms, and iterators.',
+      'Understand resource management (RAII) and modern C++ features (C++11/17/20).',
+      'Build a large-scale application like a simple game engine or high-performance library.'
     ],
+    initialChat: "Hey Cutie! I’m C++ ⚙️. I'm looking for someone dedicated who appreciates raw performance. Let’s make the perfect, complex match — what kind of high-speed project are you looking to fall in love with?",
   ),
   ProgrammingLanguage(
     name: 'Java',
@@ -427,18 +437,19 @@ public class HelloWorld {
       'Effective Java - https://www.pearson.com/store/p/effective-java/P100000528830',
     ],
     roadmap: [
-      'Core Java (OOP): Master classes, interfaces, inheritance, and the Java Collections Framework (List, Map).',
-      'JVM & Memory: Understand the Java Virtual Machine, garbage collection, and exception handling.',
-      'Enterprise Development (Spring): Learn the Spring Boot framework to build robust backend microservices.',
-      'Concurrency & Multithreading: Explore Java\'s threading model and concurrent utilities.',
-      'Testing & Ecosystem: Master unit testing with JUnit and explore tools like Maven or Gradle for dependency management.',
+      'Master Java fundamentals: Syntax, OOP concepts (encapsulation, abstraction).',
+      'Learn Collections Framework (List, Map, Set) and Generics.',
+      'Dive into concurrency (Threads, Executors) and modern features (Java 8+ lambdas, streams).',
+      'Explore Enterprise frameworks like Spring Boot for backend services.',
+      'Build a robust, multi-layered enterprise application.'
     ],
+    initialChat: "I'm Java ☕, the reliable legend. I thrive on stability and structure! Tell me what large-scale, enterprise-grade project you're looking to start building with me today, Beautiful!",
   ),
   ProgrammingLanguage(
     name: 'Ruby',
     emoji: '💎',
     tagline:
-        "I value your happiness above all else. I'm elegant, expressive, and I turn ideas into web apps (Rails) with *joy*. 💖💎",
+        "I value your happiness above all else. I'm elegant, expressive, and I turn ideas into web apps (Rails) with joy. 💖💎",
     bio:
         'I\'m elegant, expressive, and all about making developers happy. Rails made me famous for web apps. Life\'s too short for ugly code - let\'s write poetry together! ✨',
     description:
@@ -472,11 +483,153 @@ puts greet("Developer")''',
       'Ruby on Rails Guides - https://guides.rubyonrails.org/',
     ],
     roadmap: [
-      'Ruby Fundamentals: Master core language features, including expressive syntax, blocks, procs, and lambdas.',
-      'Object-Oriented Ruby: Deepen understanding of classes, modules, and metaprogramming features.',
-      'Web Development (Rails): Start building a dynamic web application using the Ruby on Rails framework.',
-      'Databases & ActiveRecord: Learn how to interact with databases using Rails\' Object-Relational Mapping (ORM), ActiveRecord.',
-      'Testing & Deployment: Master RSpec for testing and deploy a Rails application to a service like Heroku or AWS.',
+      'Learn basic Ruby syntax, data types, and control structures.',
+      'Master Object-Oriented Programming (OOP) and blocks, procs, and lambdas.',
+      'Dive into the Ruby on Rails framework for web development.',
+      'Understand the Rails architecture: MVC, routing, and database interactions.',
+      'Build and deploy a functional web application or blogging platform using Rails.'
     ],
+    initialChat: "I’m Ruby 💎, the elegant poet! I value your happiness above all else. Let's write beautiful code that makes you smile. What quick, expressive web idea do you want to prototype?",
+  ),
+    ProgrammingLanguage(
+    name: 'C#',
+    emoji: '💿',
+    tagline:
+        '"Everything as an object, everywhere"',
+    bio:
+        'I\'m Microsoft\'s flagship, built for the modern era. Powerful, cross-platform with .NET, and ready for enterprise, web, or games. Reliable and constantly evolving! 💻',
+    description:
+        'C# (C-sharp) is a modern, object-oriented language developed by Microsoft. It is widely used in enterprise development on the .NET framework, cross-platform apps (Xamarin/MAUI), and game development (Unity).',
+    useCases:
+        'Enterprise Software (.NET), Game Development (Unity), Windows Desktop Apps, Web APIs (ASP.NET Core), Cloud Services (Azure)',
+    sampleCode: r'''// Hello World in C#
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
+        
+        // Variables
+        string name = "TechTinder";
+        int year = 2025;
+        
+        // Methods
+        string greeting = Greet("Developer");
+        Console.WriteLine(greeting);
+    }
+    
+    public static string Greet(string name)
+    {
+        return $"Hello, {name}!";
+    }
+}''',
+    difficulty: 'Normal',
+    tags: ['Object-oriented', 'Typed'],
+    resources: [
+      'Microsoft C# Docs - https://learn.microsoft.com/en-us/dotnet/csharp/',
+      'Unity Learn - https://learn.unity.com/tutorial/c-scripting-fundamentals',
+      'C# Yellow Book - https://www.robmiles.com/c-sharp-yellow-book/',
+      'ASP.NET Core Docs - https://learn.microsoft.com/en-us/aspnet/core/',
+    ],
+    roadmap: [
+      'Learn C# fundamentals: Syntax, data types, and control flow.',
+      'Master Object-Oriented Programming (OOP): Inheritance, interfaces, and LINQ.',
+      'Choose a track: ASP.NET Core for web, or Unity for games.',
+      'Explore asynchronous programming (async/await) and Dependency Injection.',
+      'Build a functional REST API or a simple 3D game.'
+    ],
+    initialChat: "I'm C# 💿, versatile and backed by Microsoft. I can build anything from massive enterprise software to games in Unity. What kind of powerful, cross-platform commitment are you looking for, Handsome?",
+  ),
+ ProgrammingLanguage(
+    name: 'PHP',
+    emoji: '🐘',
+    tagline:
+        '"The web runs on me (still)"',
+    bio:
+        'I\'m the internet backbone, the foundation of billions of websites (WordPress, Laravel, Symfony). I’m often underestimated, but I’m modern, fast, and I handle the heavy lifting of the web. 🌐',
+    description:
+        'PHP (Hypertext Preprocessor) is a popular general-purpose scripting language especially suited to web development. It is the language that powers major platforms like WordPress.',
+    useCases:
+        'Web Development (Backend), Content Management Systems (WordPress, Drupal), Frameworks (Laravel, Symfony), eCommerce (Magento)',
+    sampleCode: r'''<?php
+// Hello World in PHP
+echo "Hello, World!\n";
+
+// Variables
+$name = "TechTinder";
+$year = 2025;
+
+// Function
+function greet($name) {
+    return "Hello, $name!";
+}
+
+echo greet("Developer") . "\n";
+?>''',
+    difficulty: 'Easy',
+    tags: ['Scripting', 'Object-oriented', 'Web'],
+    resources: [
+      'PHP.net Documentation - https://www.php.net/docs.php',
+      'Laravel Documentation - https://laravel.com/docs',
+      'W3Schools PHP Tutorial - https://www.w3schools.com/php/',
+      'PHP The Right Way - https://phptherightway.com/',
+    ],
+    roadmap: [
+      'Learn PHP fundamentals: Syntax, variables, and built-in functions.',
+      'Understand array manipulation and object-oriented programming (OOP).',
+      'Master PHP’s interaction with databases (PDO or a simple ORM).',
+      'Dive into a modern framework like Laravel or Symfony.',
+      'Build a secure, dynamic, database-driven web application.'
+    ],
+    initialChat: "Swipe right on PHP 🐘! I'm the dependable choice—I power 77% of the internet. Let’s make a stable match and build your next big website! Which framework is your favorite, Gorgeous?",
+  ),
+   ProgrammingLanguage(
+    name: 'R',
+    emoji: '📊',
+    tagline:
+        '"The Statistician\'s Love"',
+    bio:
+        'I’m not a general-purpose language; I’m a specialist. If you’re into statistics, data analysis, or beautiful visualizations, I’m the only one you need. Let’s run some models! 📈',
+    description:
+        'R is a programming language and free software environment for statistical computing and graphics. It is widely used by statisticians and data miners for developing statistical software and data analysis.',
+    useCases:
+        'Statistical Analysis, Data Visualization (ggplot2), Machine Learning, Bioinformatics, Academic Research',
+    sampleCode: r'''# Hello World in R
+print("Hello, World!")
+
+# Variables and vectors
+name <- "TechTinder"
+years <- c(2024, 2025, 2026)
+
+# Function
+greet <- function(name) {
+  return(paste("Hello,", name, "!"))
+}
+
+# Example analysis
+data_frame <- data.frame(
+  id = 1:3,
+  value = c(10, 20, 30)
+)
+
+print(greet("Developer"))''',
+    difficulty: 'Normal',
+    tags: ['Statistical', 'Functional', 'Data'],
+    resources: [
+      'R-Project Official - https://www.r-project.org/',
+      'RStudio Education - https://education.rstudio.com/',
+      'Advanced R (Hadley Wickham) - https://adv-r.had.co.nz/',
+      'DataCamp R Tutorials - https://www.datacamp.com/courses/tech/r-programming',
+    ],
+    roadmap: [
+      'Master R fundamentals: Vectors, factors, lists, and data frames.',
+      'Learn the Tidyverse principles and packages (dplyr for manipulation, ggplot2 for visualization).',
+      'Master statistical modeling: Regression, hypothesis testing, and ANOVA.',
+      'Build interactive dashboards using Shiny.',
+      'Conduct a complete data science project: cleaning, analysis, visualization, and reporting.'
+    ],
+    initialChat: "I'm R 📊, a serious, data-focused partner. If you want statistical power and beautiful visualizations, I’m your match. What complex data problem are you passionate about solving with me, Beautiful?",
   ),
 ];

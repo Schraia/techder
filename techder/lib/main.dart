@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'languages.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http; 
+import 'package:http/http.dart' as http;
+// Removed, as randomness is now handled by unique static strings
 
 void main() {
   runApp(const TechTinderApp());
@@ -45,6 +46,8 @@ class _HomePageState extends State<HomePage> {
   final List<ProgrammingLanguage> _matches = [];
   final List<ProgrammingLanguage> _skipped = [];
   late List<ProgrammingLanguage> _languages;
+  // Active tag filters for the Matches tab
+  final Set<String> _activeTagFilters = {};
 
   @override
   void initState() {
@@ -356,25 +359,109 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.85,
+          // Filter chips based on tags found in the current matches
+          if (_matches.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  // build chips from unique tags in matches (includes Easy/Normal/Hard)
+                  ..._availableMatchTags().map((tag) {
+                    final selected = _activeTagFilters.contains(tag);
+                    return FilterChip(
+                      label: Text(tag, style: const TextStyle(color: Colors.white)),
+                      selected: selected,
+                      onSelected: (v) => setState(() {
+                        if (v) {
+                          _activeTagFilters.add(tag);
+                        } else {
+                          _activeTagFilters.remove(tag);
+                        }
+                      }),
+                      selectedColor: Colors.pink,
+                      checkmarkColor: Colors.white,
+                      backgroundColor: Colors.grey[800],
+                      labelStyle: const TextStyle(color: Colors.white),
+                    );
+                  }),
+                  // Clear filters chip
+                  if (_activeTagFilters.isNotEmpty)
+                    ActionChip(
+                      label: const Text('Clear'),
+                      onPressed: () => setState(() => _activeTagFilters.clear()),
+                      backgroundColor: Colors.grey[700],
+                      labelStyle: const TextStyle(color: Colors.white),
+                    ),
+                ],
               ),
-              itemCount: _matches.length,
-              itemBuilder: (context, index) {
-                final language = _matches[index];
-                return _buildMatchCard(language);
-              },
             ),
+          // Apply active tag filters to the matches list
+          Expanded(
+            child: Builder(builder: (context) {
+              final filteredMatches = _activeTagFilters.isEmpty
+                  ? _matches
+                  : _matches.where((m) {
+                      return _activeTagFilters.any((filter) {
+                        if (filter == 'Easy' || filter == 'Normal' || filter == 'Hard') {
+                          return m.difficulty.toLowerCase() == filter.toLowerCase();
+                        }
+                        return m.tags.contains(filter);
+                      });
+                    }).toList();
+
+              if (filteredMatches.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'No matching Language',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+
+              return GridView.builder(
+                padding: const EdgeInsets.all(16),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.85,
+                ),
+                itemCount: filteredMatches.length,
+                itemBuilder: (context, index) {
+                  final language = filteredMatches[index];
+                  return _buildMatchCard(language);
+                },
+              );
+            }),
           ),
         ],
       ),
     );
+  }
+
+  // Collect unique tags from the current matches list
+  List<String> _availableMatchTags() {
+    final tags = <String>{};
+    for (final m in _matches) {
+      tags.addAll(m.tags);
+    }
+    // Always include difficulty levels even if not present in matches
+    tags.addAll(['Easy', 'Normal', 'Hard']);
+    final list = tags.toList()..sort((a, b) {
+      // Keep difficulties grouped and predictable: Easy, Normal, Hard first
+      const order = ['Easy', 'Normal', 'Hard'];
+      final ai = order.contains(a) ? order.indexOf(a) : order.length;
+      final bi = order.contains(b) ? order.indexOf(b) : order.length;
+      if (ai != bi) return ai.compareTo(bi);
+      return a.compareTo(b);
+    });
+    return list;
   }
 
   Widget _buildMatchCard(ProgrammingLanguage language) {
@@ -517,9 +604,14 @@ Widget _buildListSection(String title, List<String> items) {
       backgroundColor: const Color(0xFF1a1a1a),
       appBar: AppBar(
         backgroundColor: const Color(0xFF2a2a2a),
-        title: Text(language.name),
+        // Set AppBar title text color to white
+        title: Text(
+          language.name,
+          style: const TextStyle(color: Colors.white),
+        ),
+        // Set leading icon (back button) color to white
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -769,14 +861,19 @@ class _ChatScreenState extends State<ChatScreen> {
   static const _kApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent';
   // --- End API Configuration ---
 
+  // Removed: List of potential chat starters with placeholders (_chatStarters)
+
   @override
   void initState() {
     super.initState();
+    
+    // Updated: Directly use the unique, personalized chat string stored in the language model
+    final initialMessage = widget.language.initialChat;
+
     // Initial engaging message from the "language" persona
     _messages.add({
       'sender': 'AI',
-      'text':
-          'Hey cutie! I’m ${widget.language.name} ${widget.language.emoji}. Let’s make the perfect match — what kind of project are you looking to fall in love with?',
+      'text': initialMessage,
     });
   }
 
@@ -884,9 +981,14 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: const Color(0xFF1a1a1a),
       appBar: AppBar(
         backgroundColor: const Color(0xFF2a2a2a),
-        title: Text('Chatting with ${widget.language.name}'),
+        // Set AppBar title text color to white
+        title: Text(
+          'Chatting with ${widget.language.name}',
+          style: const TextStyle(color: Colors.white),
+        ),
+        // Set leading icon (back button) color to white
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
